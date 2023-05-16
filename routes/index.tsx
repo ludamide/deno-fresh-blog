@@ -1,9 +1,11 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Post } from "../types.d.ts";
 import { listPosts } from "../utils/posts.ts";
+import { logo } from "../utils/assets.ts";
 
 export const handler: Handlers = {
   async GET(req, context) {
+    console.log(context.state.data);
     const posts = await listPosts();
     return context.render({ posts });
   },
@@ -14,7 +16,10 @@ export default function Home(props: PageProps) {
   const { posts } = data;
   return (
     <main class="p-4">
-      <h1 class="text-2xl font-bold">Mi blog</h1>
+      <div class="flex">
+        <img src={logo} />
+        <h1 class="text-2xl font-bold">El blog de Ludvig Amide</h1>
+      </div>
       {posts.map((post: Post) => (
         <article class="p-4">
           <h2 class="text-2xl font-bold">
